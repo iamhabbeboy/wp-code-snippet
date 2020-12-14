@@ -71,7 +71,11 @@ class Code_Snippet_Ajax
         echo "deleted";
         exit;
     }
-
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function code_snippet_run_time()
     {
         if( empty( $_REQUEST['filename'])) {

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The plugin bootstrap file
  *
@@ -10,12 +9,12 @@
  *
  * @link              http://example.com
  * @since             1.0.0
- * @package           Plugin_Name
+ * @package           Code_Snippet_Editor
  *
  * @wordpress-plugin
  * Plugin Name:       Code Snippet
  * Plugin URI:        http://example.com/plugin-name-uri/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area. 
  * Version:           1.0.0
  * Author:            Your Name or Your Company
  * Author URI:        http://example.com/
@@ -37,16 +36,19 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'PLUGIN_NAME_VERSION', '1.0.0' );
 
-// WPINS stands for WP Instant Snippet Plugin
+// WPINS stands for WP Instant Snippet Plugin.
 define( 'WPCS_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPCS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPCS_BASENAME', plugin_basename( __FILE__ ) );
 
 define( 'CODE_SNIPPET_DIR', ABSPATH . '/wp-code-snippet' );
-//// plugin info
-//define( 'WPCS_VERSION', '1.0.0' );
-//define( 'WPCS_NAME', 'Instant Snippet' );
-//define( 'WPCS_ALIAS', 'instant-snippet' );
+// plugin info.
+
+// define( 'WPCS_VERSION', '1.0.0' );.
+
+// define( 'WPCS_NAME', 'Instant Snippet' );.
+
+// define( 'WPCS_ALIAS', 'instant-snippet' );.
 
 /**
  * The code that runs during plugin activation.

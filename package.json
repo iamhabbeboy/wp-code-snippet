@@ -1,0 +1,29 @@
+{
+  "name": "code-snippet",
+  "version": "1.0.0",
+  "description": "Contributors: (this should be a list of wordpress.org userid's) Donate link: http://example.com/ Tags: comments, spam Requires at least: 3.0.1 Tested up to: 3.4 Stable tag: 4.3 License: GPLv2 or later License URI: http://www.gnu.org/licenses/gpl-2.0.html",
+  "main": "index.js",
+  "dependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "prettier": "2.2.1"
+  },
+  "devDependencies": {
+    "qunit": "^2.13.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "prettier --write \"admin/js/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamhabbeboy/wp-code-snippet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamhabbeboy/wp-code-snippet/issues"
+  },
+  "homepage": "https://github.com/iamhabbeboy/wp-code-snippet#readme"
+}
