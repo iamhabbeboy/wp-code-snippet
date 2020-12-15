@@ -2,25 +2,27 @@
   "name": "code-snippet",
   "version": "1.0.0",
   "description": "Contributors: (this should be a list of wordpress.org userid's) Donate link: http://example.com/ Tags: comments, spam Requires at least: 3.0.1 Tested up to: 3.4 Stable tag: 4.3 License: GPLv2 or later License URI: http://www.gnu.org/licenses/gpl-2.0.html",
+  "author": "Abiodun Solomon | Bashlabs",
   "main": "index.js",
   "dependencies": {
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-prettier": "^3.3.0",
+    "global": "^4.4.0",
     "prettier": "2.2.1"
   },
-  "devDependencies": {
-    "qunit": "^2.13.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "prettier --write \"admin/js/*.js\""
+    "test": "qunit admin/js/test/",
+    "lint": "prettier --write \"admin/js/*.js\"",
+    "watch": "NODE_ENV=development webpack --mode=development --watch --config webpack.config.js",
+    "dev": "NODE_ENV=development webpack --mode=development --config webpack.config.js",
+    "prod": "NODE_ENV=production webpack --mode=production --config webpack.config.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iamhabbeboy/wp-code-snippet.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/iamhabbeboy/wp-code-snippet/issues"

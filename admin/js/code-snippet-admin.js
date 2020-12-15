@@ -31,47 +31,32 @@
   const CodeSnippetEditor = {};
   const ACE_LIB = ace.edit('editor');
 
-  CodeSnippetEditor.init = () => {
-    this.getAceDefaultConfig();
-  };
-  CodeSnippetEditor.helper = () => {};
-
-  CodeSnippetEditor.getAceDefaultConfig = () => {
-    const themes = [
-      'dawn',
-      'chrome',
-      'github',
-      'dracula',
-      'gob',
-      'gruvbox',
-      'idle_fingers',
-      'monokai',
-      'nord_dark',
-      'solarized_dark',
-      'sqlserver',
-    ];
-    ACE_LIB.setTheme('ace/theme/monokai');
-    ACE_LIB.session.setMode('ace/mode/php');
-
-    const $changeTheme = $('#instant-snippet-change-theme');
-    let setOptionElement = '';
-    // themes.map((theme) => {
-    //   elem1 += `<option value="${theme}">${theme}</option>`;
-    // });
-    for (let theme of themes) {
-      setOptionElement += `<option value="${theme}">${theme}</option>`;
-    }
-    $changeTheme.html(setOptionElement);
-
-    $changeTheme.on('change', function () {
-      const theme = $(this).val() === undefined ? 'monokai' : $(this).val();
-      editor.setTheme(`ace/theme/${theme}`);
-    });
+  CodeSnippetEditor.init = function () {
+    this.setAceDefaultConfig();
+    this.dispatchTheme();
+    this.dispatchFont();
+    this.dispatchCodeSnippetList();
+    this.dispatchSnippetLabel();
+    this.dispatchCodeExecution();
+    //hide output on page load
+    this.DOM.output.hide();
   };
 
-  CodeSnippetEditor.init();
+  CodeSnippetEditor.getThemes = [
+    'dawn',
+    'chrome',
+    'github',
+    'dracula',
+    'gob',
+    'gruvbox',
+    'idle_fingers',
+    'monokai',
+    'nord_dark',
+    'solarized_dark',
+    'sqlserver',
+  ];
 
-  const commandList = {
+  CodeSnippetEditor.getCodeSnippet = {
     get_posts: '$posts = get_posts( 1 );\n\n var_dump( $posts );',
     action:
       "add_action( 'sample_action' , static function(){\n\techo 'Silence is golden';\n});\n\n//call action\ndo_action( 'sample_action' );",
@@ -90,76 +75,104 @@
       "$terms = get_terms( array( 'taxonomy' => 'tax_name', 'parent' => 0 ) );\n\nvar_dump( $terms );",
   };
 
-  loadToolbar();
-  $('#instant-snippet-output').hide();
+  CodeSnippetEditor.setAceDefaultConfig = function () {
+    ACE_LIB.setTheme('ace/theme/monokai');
+    ACE_LIB.session.setMode('ace/mode/php');
+  };
 
-  $(document).on('change', '#instant-snippet-font-size', function () {
-    let size = $(this).val() === undefined ? 13 : $(this).val();
-    let sizeToNumber = parseInt(size);
-    editor.setFontSize(sizeToNumber);
-  });
-
-  $(document).on('change', '#instant-snippet-change-lang', function () {
-    let lang = $(this).val() === undefined ? 'php' : $(this).val();
-
-    switch (lang) {
-      case 'sql':
-        setPhp(editor);
-        break;
-      case 'javascript':
-        setJavascript(editor);
-        break;
-      default:
-        setDefault(editor);
-        editor.session.setMode(`ace/mode/php`);
-        break;
+  CodeSnippetEditor.setTheme = function () {
+    const themes = this.getThemes;
+    let setOptionElement = '';
+    for (let theme of themes) {
+      setOptionElement += `<option value="${theme}">${theme}</option>`;
     }
-  });
+    return setOptionElement;
+  };
 
-  $(document).on('click', '.code-snippet-quick-code label', function (e) {
-    const getData = $(this).data('code');
-    $('#code-snippet-current-tab').val('0');
-    const data = `<?php\n\n${getData}`;
-    editor.getSession().setValue(data);
-  });
+  CodeSnippetEditor.DOM = {
+    output: $('#instant-snippet-output'),
+    font: $('#instant-snippet-font-size'),
+    theme: $('#instant-snippet-change-theme'),
+    current_tab: $('#code-snippet-current-tab'),
+    language: $('#instant-snippet-change-lang'),
+    snippet_toolbar: $('.code-snippet-quick-code'),
+    execution_button: $('#instant-snippet-execute'),
+    recent_filename: $('#code-snippet-recent-filename'),
+    recent_files: $('#code-snippet-recently-veiwed-file'),
+    snippet_toolbar_button: $('.code-snippet-quick-code label'),
+  };
 
-  function loadToolbar() {
-    let html = '';
-    let keys = Object.keys(commandList);
-    keys.map((res) => {
-      html += `<label data-code="${commandList[res]}"> ${res}</label>`;
+  CodeSnippetEditor.ACTIONS = {
+    code_execution: 'code_snippet_execution',
+  };
+
+  CodeSnippetEditor.dispatchTheme = function () {
+    const themes = this.setTheme();
+    this.DOM.theme.html(themes);
+
+    this.DOM.theme.on('change', function () {
+      const theme = $(this).val() === undefined ? 'monokai' : $(this).val();
+      ACE_LIB.setTheme(`ace/theme/${theme}`);
     });
-    $('.code-snippet-quick-code').append(html);
-  }
+  };
 
-  function appendText(text) {
-    var cursorPos = $('#text').prop('selectionStart');
-    var v = $('#text').val();
-    var textBefore = v.substring(0, cursorPos);
-    var textAfter = v.substring(cursorPos, v.length);
-    $('#text').val(textBefore + 'Hello world' + textAfter);
-  }
+  CodeSnippetEditor.dispatchFont = function () {
+    this.DOM.font.on('change', function () {
+      let size = $(this).val() === undefined ? 13 : $(this).val();
+      let sizeToNumber = parseInt(size);
+      ACE_LIB.setFontSize(sizeToNumber);
+    });
+  };
 
-  function setAction(editor) {
+  CodeSnippetEditor.dispatchCodeSnippetList = function () {
+    let setSnippetCommands = '';
+    const codeSnippet = this.getCodeSnippet;
+    let snippetKeys = Object.keys(codeSnippet);
+    for (let snippet of snippetKeys) {
+      setSnippetCommands += `<label data-code="${codeSnippet[snippet]}"> ${snippet}</label>`;
+    }
+    this.DOM.snippet_toolbar.append(setSnippetCommands);
+  };
+
+  CodeSnippetEditor.dispatchChangeLanguage = function () {
+    const that = this;
+    this.DOM.language.on('change', function () {
+      console.log('Hello world');
+      let lang = $(this).val() === undefined ? 'php' : $(this).val();
+
+      switch (lang) {
+        case 'sql':
+          that.setPhp();
+          break;
+        case 'javascript':
+          that.setJavascript();
+          break;
+        default:
+          that.setDefault();
+          ACE_LIB.session.setMode(`ace/mode/php`);
+          break;
+      }
+    });
+  };
+  CodeSnippetEditor.setAction = function () {
     let command = '<?php \n\n$posts = get_posts(1);\n\n var_dump($posts);';
-    editor.session.setValue(command);
-  }
-
-  function setDefault(editor) {
+    ACE_LIB.session.setValue(command);
+  };
+  CodeSnippetEditor.setDefault = function () {
     let command = '<?php \n\n//Silence is golden';
-    editor.session.setValue(command);
-  }
+    ACE_LIB.session.setValue(command);
+  };
 
-  function setPhp(editor) {
+  CodeSnippetEditor.setPhp = function () {
     let command = '<?php \n\n// $wpdb db class model \n global $wpdb;';
     command +=
       "\n\n//Write your SQL here\n$query = 'SELECT * FROM wp_posts LIMIT 1';";
     command += '\n$results = $wpdb->get_results($query);';
     command += '\nvar_dump($results);';
-    editor.session.setValue(command);
-  }
+    ACE_LIB.session.setValue(command);
+  };
 
-  function setJavascript(editor) {
+  CodeSnippetEditor.setJavascript = function () {
     let command = '<!doctype html>\n';
     command += '<html>\n\t<head>\n\t<title>Untitled</title>\n';
     command += '\n\t\t<script>\n';
@@ -168,20 +181,24 @@
     command += '\t</head>\n<body>\n\t<h2>Hello world</h2>\n';
     command += '</body>\n</html>';
     editor.session.setValue(command);
-    editor.session.setMode('ace/mode/html5');
-  }
+    ACE_LIB.session.setMode('ace/mode/html5');
+  };
 
-  function loadNewFileHistory(filename) {
-    const history = $('.code-snippet-history ul');
-    const children = history.children();
+  CodeSnippetEditor.dispatchSnippetLabel = function () {
+    const that = this;
+    this.DOM.snippet_toolbar.find('label').on('click', function (e) {
+      e.preventDefault();
+      const getData = $(this).data('code');
+      that.DOM.current_tab.val('0');
+      const data = `<?php\n\n${getData}`;
+      ACE_LIB.getSession().setValue(data);
+    });
+  };
+
+  CodeSnippetEditor.createFile = function (filename) {
     const file_name = filename + '.php';
-    let list = [];
-    for (let child of children) {
-      list.push(child.getAttribute('data-file').trim());
-    }
-
-    console.log(list.indexOf(file_name));
-    if (list.indexOf(file_name) === -1) {
+    const getElementAttr = this.getFileAttribute();
+    if (getElementAttr.indexOf(file_name) === -1) {
       let el = `<li data-file="${filename}"><a href="#" id="code-snippet-delete-file" data-file="${filename}"><span>&times;</span></a>
 				<a href="#" style="text-decoration: none;" class="open-recent-file" data-id="${filename}" data-file="${filename}">
 				<h3 style="padding-top: 0px;margin: 0px;">${filename}</h3>
@@ -190,55 +207,92 @@
 				</p>
 			</a></li>`;
       $('.code-snippet-history ul').prepend(el);
-      console.log('oops');
     }
-  }
+  };
 
-  $('#instant-snippet-execute').on('click', function () {
-    const editor = ace.edit('editor');
-    const code = editor.getSession().getValue();
+  CodeSnippetEditor.getFileAttribute = function () {
+    const history = $('.code-snippet-history ul');
+    const children = history.children();
+    let setAttribute = [];
+    for (let child of children) {
+      setAttribute.push(child.getAttribute('data-file').trim());
+    }
+    return setAttribute;
+  };
+
+  CodeSnippetEditor.dispatchCodeExecution = function () {
+    const that = this;
+    this.DOM.execution_button.on('click', function () {
+      const filename = that.getNewFileName();
+      const payload = {
+        tab: filename.tabIndex,
+        filename: filename.title,
+        action: that.ACTIONS.code_execution,
+        code: ACE_LIB.getSession().getValue(),
+      };
+      const formatElement = `<i>Untitled${filename.tabIndex}</i>`;
+      that.DOM.recent_files.html(formatElement);
+      that.DOM.recent_filename.val(filename.tabIndex);
+      that.createFile(filename.title);
+      ajax(payload)
+        .success(function (resp) {
+          $('#instant-snippet-output').slideDown().html(resp);
+        })
+        .error(function (err) {
+          $('#instant-snippet-output')
+            .slideDown()
+            .html('')
+            .html(err.responseText);
+        });
+
+      // ajax({
+      //   action: 'code_snippet_run_time',
+      //   filename: filename.title,
+      // })
+      //   .success(function (resp) {
+      //     const elem = resp.split('code_snippet_time:');
+      //     const runTime = elem[1] === undefined ? 0 : elem[1];
+      //     $('#code-snippet-run-time').html(
+      //       `${parseFloat(runTime).toFixed(3)}s`,
+      //     );
+      //   })
+      //   .error(function (err) {
+      //     $('#instant-snippet-output')
+      //       .slideDown()
+      //       .html('')
+      //       .html(err.responseText);
+      //   });
+    });
+  };
+
+  CodeSnippetEditor.getNewFileName = function () {
+    ACE_LIB.getSession().getValue();
     let lastFile = $('#code-snippet-recent-filename').val();
     let tabChanger = $('#code-snippet-current-tab').val();
-    let postFix = tabChanger === '0' ? parseInt(lastFile) + 1 : tabChanger;
-    const filename = 'Untitled' + postFix;
+    let fileIndexNumber =
+      tabChanger === '0' ? parseInt(lastFile) + 1 : tabChanger;
+    return { title: 'Untitled' + fileIndexNumber, tabIndex: fileIndexNumber };
+  };
 
-    const payload = {
-      code: code,
-      tab: postFix,
-      action: 'code_snippet_execution',
-      filename: filename,
-    };
+  // $('#instant-snippet-execute').on('click', function () {
+  //   // const editor = ace.edit('editor');
+  //   // const code = editor.getSession().getValue();
+  //   // let lastFile = $('#code-snippet-recent-filename').val();
+  //   // let tabChanger = $('#code-snippet-current-tab').val();
+  //   // let postFix = tabChanger === '0' ? parseInt(lastFile) + 1 : tabChanger;
+  //   // const filename = 'Untitled' + postFix;
 
-    $('#code-snippet-recently-veiwed-file').html(`<i>Untitled${postFix}</i>`);
-    $('#code-snippet-recent-filename').val(postFix);
-    loadNewFileHistory(filename);
-    ajax(payload)
-      .success(function (resp) {
-        $('#instant-snippet-output').slideDown().html(resp);
-      })
-      .error(function (err) {
-        $('#instant-snippet-output')
-          .slideDown()
-          .html('')
-          .html(err.responseText);
-      });
+  //   const payload = {
+  //     code: code,
+  //     tab: postFix,
+  //     action: 'code_snippet_execution',
+  //     filename: filename,
+  //   };
 
-    ajax({
-      action: 'code_snippet_run_time',
-      filename: 'Untitled' + postFix,
-    })
-      .success(function (resp) {
-        const elem = resp.split('code_snippet_time:');
-        const runTime = elem[1] === undefined ? 0 : elem[1];
-        $('#code-snippet-run-time').html(`${parseFloat(runTime).toFixed(3)}s`);
-      })
-      .error(function (err) {
-        $('#instant-snippet-output')
-          .slideDown()
-          .html('')
-          .html(err.responseText);
-      });
-  });
+  //   $('#code-snippet-recently-veiwed-file').html(`<i>Untitled${postFix}</i>`);
+  //   $('#code-snippet-recent-filename').val(postFix);
+  //   this.createFile(filename);
+  // });
 
   $(document).on('click', '#code-snippet-new-tab', function (e) {
     e.preventDefault();
@@ -328,4 +382,6 @@
     e.preventDefault();
     $('#instant-snippet-output').toggle('slow');
   });
+
+  CodeSnippetEditor.init();
 })(jQuery, ace);

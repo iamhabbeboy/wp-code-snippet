@@ -41,7 +41,7 @@ define( 'WPCS_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPCS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPCS_BASENAME', plugin_basename( __FILE__ ) );
 
-define( 'CODE_SNIPPET_DIR', ABSPATH . '/wp-code-snippet' );
+define( 'CODE_SNIPPET_DIR', ABSPATH . 'wp-code-snippet' );
 // plugin info.
 
 // define( 'WPCS_VERSION', '1.0.0' );.

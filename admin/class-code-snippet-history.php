@@ -15,16 +15,19 @@ class Code_Snippet_History
     public function get_open_files() : void
     {
         $dir = !defined( 'CODE_SNIPPET_DIR' ) ? ABSPATH . '/wp-code-snippet' : CODE_SNIPPET_DIR;
-        if ($handle = opendir($dir)) {
-            $key = 0;
-            while (false !== ($entry = readdir($handle))) {
-                if ($entry != "." && $entry != "..") {
-                    require 'partials/single-file.php';
-                    $key++;
+        if( is_dir( $dir ) ) {
+            if ( $handle = opendir( $dir ) ) {
+                $key = 0;
+                while ( false !== ($entry = readdir( $handle ) ) ) {
+                    if ($entry != "." && $entry != "..") {
+                        require 'partials/single-file.php';
+                        $key++;
+                    }
                 }
+                closedir($handle);
             }
-          
-            closedir($handle);
+        } else {
+            echo "No file available.";
         }
     }
 }
