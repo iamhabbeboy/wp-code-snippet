@@ -300,7 +300,7 @@
 
       //clear screen
       ACE_LIB.getSession().setValue('');
-      that.DOM.recent_files.that.DOM.html(`<i>${newTabTitle}</i>`);
+      that.DOM.recent_files.html(`<i>${newTabTitle}</i>`);
     };
   };
 
