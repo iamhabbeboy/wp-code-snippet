@@ -19,7 +19,7 @@
     <div class="wp-pattern-example" >
         <h3><?php esc_html_e( 'Fast track your productivity by testing out your code on the spot', 'instant-snippet' ) ?></h3>
         <div class="code-snippet-file-history">
-            <div id="editor" style="width: 80%;height: 500px"></div>
+            <div id="code-snippet-editor" style="width: 80%;height: 500px"></div>
             <div class="history" style="margin-left: 10px;width: 18%">
                 <h3>History <a href="#" class="code-snippet-new-file" id="code-snippet-new-tab"><span>New</span></a> </h3>
                 <span id="code-snippet-recently-veiwed-file"></span>
@@ -32,8 +32,8 @@
         </div>
         <p></p>
         <div class="code-snippet-tool-bar">
-        <input type="hidden" id="code-snippet-recent-filename" value="<?php echo get_option('code_snippet_last_file_created', 0) ?>" />
-        <input type="hidden" id="code-snippet-current-tab" value="0" />
+        <input type="text" id="code-snippet-recent-filename" value="<?php echo get_option('code_snippet_last_file_created', 0) ?>" />
+        <input type="text" id="code-snippet-current-tab" value="0" />
         <button class="button button-primary" id="instant-snippet-execute"><?php esc_html_e( 'Save &amp; Execute', 'instant-snippet' ) ?></button>
         <button class="button" id="code-snippet-copy-code">Copy code</button>
         <select class="input" id="instant-snippet-change-lang">
