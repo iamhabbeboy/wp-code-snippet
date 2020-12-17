@@ -32,8 +32,8 @@
         </div>
         <p></p>
         <div class="code-snippet-tool-bar">
-        <input type="text" id="code-snippet-recent-filename" value="<?php echo get_option('code_snippet_last_file_created', 0) ?>" />
-        <input type="text" id="code-snippet-current-tab" value="0" />
+        <input type="hidden" id="code-snippet-recent-filename" value="<?php echo get_option('code_snippet_last_file_created', 0) ?>" />
+        <input type="hidden" id="code-snippet-current-tab" value="0" />
         <button class="button button-primary" id="instant-snippet-execute"><?php esc_html_e( 'Save &amp; Execute', 'instant-snippet' ) ?></button>
         <button class="button" id="code-snippet-copy-code">Copy code</button>
         <select class="input" id="instant-snippet-change-lang">
@@ -54,12 +54,8 @@
             <option value="12">12</option>
             <option value="13">13</option>
             <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="24">24</option>
         </select>
-        <label> RunTime: <span id="code-snippet-run-time">0.0s</span> </label>
+        <!-- <label> RunTime: <span id="code-snippet-run-time">0.0s</span> </label> -->
         <!-- <label>Performance: High</label> -->
         </div>
         <div class="code-snippet-quick-code"></div>

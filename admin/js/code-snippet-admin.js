@@ -39,10 +39,10 @@
     this.dispatchOpenFile();
     this.setAceDefaultConfig();
     this.dispatchCodePreview();
-    this.dispatchSnippetLabel();
     this.dispatchCodeExecution();
     this.dispatchChangeLanguage();
     this.dispatchCodeSnippetList();
+    this.dispatchSnippetLabel();
     this.dispatchCreateNewSnippet();
     this.dispatchCopyToClipboard();
     //hide output on page load
@@ -115,7 +115,9 @@
     const themes = this.getThemes;
     let setOptionElement = '';
     for (let theme of themes) {
-      setOptionElement += `<option value="${theme}">${theme}</option>`;
+      const capitalizeTitle =
+        theme.substring(0, 1).toUpperCase() + theme.substring(1);
+      setOptionElement += `<option value="${theme}">${capitalizeTitle}</option>`;
     }
     return setOptionElement;
   };
@@ -131,6 +133,8 @@
   };
 
   CodeSnippetEditor.dispatchFont = function () {
+    const fontSizeList = this.setFontSizeList();
+    this.DOM.font.html(fontSizeList);
     this.DOM.font.on('change', function () {
       let size = $(this).val() === undefined ? 13 : $(this).val();
       let sizeToNumber = parseInt(size);
@@ -414,5 +418,15 @@
     });
   };
 
+  CodeSnippetEditor.setFontSizeList = function () {
+    const MAX_SIZE = 100;
+    let setOptionElement = '';
+    for (let size = 10; size <= MAX_SIZE; size += 2) {
+      setOptionElement += `<option value="${size}">${size}</option>`;
+    }
+    return setOptionElement;
+  };
+
+  // Begin the journey here
   CodeSnippetEditor.init();
 })(jQuery, ace);
