@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2020-12-20 23:45+0100\n"
+"PO-Revision-Date: 2020-12-21 12:28+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;esc_html;esc_attr;esc_html_e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+"X-Poedit-SearchPathExcluded-1: admin/js\n"
+"X-Poedit-SearchPathExcluded-2: admin/dist\n"
+
+#: admin/class-code-snippet-editor-sidebar.php:11
+#: admin/class-code-snippet-editor-sidebar.php:12
+#: admin/partials/code-snippet-admin-display-page.php:18
+msgid "Code Snippet Editor"
+msgstr ""
+
+#: admin/partials/code-snippet-admin-display-page.php:20
+msgid "Fast track your productivity by testing out your code on the spot"
+msgstr ""
+"Realice un seguimiento rápido de su productividad probando su código en el "
+"lugar"
+
+#: admin/partials/code-snippet-admin-display-page.php:37
+msgid "Save &amp; Execute"
+msgstr "Guardar y ejecutar"
+
+#: admin/partials/code-snippet-admin-display-page.php:51
+msgid "Font size"
+msgstr "Tamaño de fuente"
+
+#: admin/partials/snippet-preview.php:2
+msgid "Preview"
+msgstr "Avance"
