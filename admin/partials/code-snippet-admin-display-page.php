@@ -32,7 +32,7 @@
         </div>
         <p></p>
         <div class="code-snippet-tool-bar">
-        <input type="hidden" id="code-snippet-recent-filename" value="<?php echo get_option('code_snippet_last_file_created', 0) ?>" />
+        <input type="hidden" id="code-snippet-recent-filename" value="<?php echo get_option( 'code_snippet_last_file_created', 0 ) ?>" />
         <input type="hidden" id="code-snippet-current-tab" value="0" />
         <button class="button button-primary" id="instant-snippet-execute"><?php esc_html_e( 'Save &amp; Execute', 'instant-snippet' ) ?></button>
         <button class="button" id="code-snippet-copy-code">Copy code</button>
@@ -48,7 +48,7 @@
             <option value="Dawn">Dawn</option>
         </select>
         <select class="input" id="instant-snippet-font-size">
-            <option value="font size">Font size</option>
+            <option value="font size"><?php esc_html_e( 'Font size', 'instant-snippet' ) ?></option>
             <option value="10">10</option>
             <option value="11">11</option>
             <option value="12">12</option>
