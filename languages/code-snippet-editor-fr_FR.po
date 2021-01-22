@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2021-01-21 12:58+0100\n"
+"PO-Revision-Date: 2021-01-21 14:50+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: _e;__;esc_html_e\n"
+"Last-Translator: \n"
+"Language: fr\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+"X-Poedit-SearchPathExcluded-1: admin/js\n"
+"X-Poedit-SearchPathExcluded-2: admin/dist\n"
+
+#: admin/class-code-snippet-editor-sidebar.php:23
+#: admin/class-code-snippet-editor-sidebar.php:24
+#: admin/partials/code-snippet-admin-display-page.php:3
+msgid "Code Snippet Editor"
+msgstr ""
+
+#: admin/partials/code-snippet-admin-display-page.php:5
+msgid "Fast track your productivity by testing out your code on the spot"
+msgstr "Accélérez votre productivité en testant votre code sur place"
+
+#: admin/partials/code-snippet-admin-display-page.php:10
+msgid "History"
+msgstr "L’histoire"
+
+#: admin/partials/code-snippet-admin-display-page.php:11
+msgid "New"
+msgstr "Nouvelle"
+
+#: admin/partials/code-snippet-admin-display-page.php:24
+msgid "Save &amp; Execute"
+msgstr "Enregistrer et exécuter"
+
+#: admin/partials/code-snippet-admin-display-page.php:25
+msgid "Copy code"
+msgstr "Copier le code"
+
+#: admin/partials/code-snippet-admin-display-page.php:32
+msgid "Theme"
+msgstr "Thème"
+
+#: admin/partials/code-snippet-admin-display-page.php:38
+msgid "Font size"
+msgstr "Taille de police"
+
+#: admin/partials/snippet-preview.php:2
+msgid "Preview"
+msgstr "Aperçu"
