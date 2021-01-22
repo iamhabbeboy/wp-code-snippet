@@ -29,6 +29,7 @@
    */
   // jQuery(document).ready(function ($){
   const CodeSnippetEditor = {};
+  if (!$('#code-snippet-editor').length) return false;
   const ACE_LIB = ace.edit('code-snippet-editor');
   const FILE_NAME = 'Untitled';
 
@@ -92,7 +93,7 @@
     create_new_tab: $('#code-snippet-new-tab'),
     current_tab: $('#code-snippet-current-tab'),
     language: $('#instant-snippet-change-lang'),
-    delete_file: $('#code-snippet-delete-file'),
+    delete_file: $('.code-snippet-delete-file'),
     preview_pane: $('#code-snippet-preview-pane'),
     snippet_toolbar: $('.code-snippet-quick-code'),
     execution_button: $('#instant-snippet-execute'),
@@ -215,7 +216,7 @@
     const fileName = filename + '.php';
     const getElementAttr = this.getFileAttribute();
     if (getElementAttr.indexOf(fileName) === -1) {
-      let el = `<li data-file="${filename}"><a href="#" id="code-snippet-delete-file" data-file="${filename}"><span>&times;</span></a>
+      let el = `<li data-file="${filename}"><a href="#" class="code-snippet-delete-file" data-file="${filename}"><span>&times;</span></a>
 				<a href="#" style="text-decoration: none;" class="open-recent-file" data-id="${filename}" data-file="${filename}">
 				<h3 style="padding-top: 0px;margin: 0px;">${filename}</h3>
 				<p>
@@ -374,7 +375,7 @@
 
   CodeSnippetEditor.dispatchDelete = function () {
     const that = this;
-    this.DOM.delete_file.on('click', function (e) {
+    $(document).on('click', '.code-snippet-delete-file', function (e) {
       e.preventDefault();
       const filename = $(this).data('file');
       if (window.confirm(`Are you sure you want to delete ${filename}?`)) {
@@ -384,17 +385,10 @@
         };
 
         const _that = $(this);
-        that
-          .ajax(data)
-          .success((response) => {
-            if (response === 'deleted') {
-              alert(filename + ' is Deleted !');
-              _that.parent().fadeOut('slow');
-            }
-          })
-          .error((error) => {
-            alert(error.responseText);
-          });
+        _that.parent().fadeOut('slow');
+        that.ajax(data).error((error) => {
+          alert(error.responseText);
+        });
       }
     });
   };

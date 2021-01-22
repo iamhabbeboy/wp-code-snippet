@@ -62,6 +62,7 @@ class Code_Snippet_Ajax {
     public function action_execute_snippet() {
         if( empty( $_REQUEST['code'] ) ) {
             echo 'empty code is not valid.';
+            exit;
         }
 
         $code = str_replace( '\\', '', $_REQUEST['code'] );
@@ -106,9 +107,11 @@ class Code_Snippet_Ajax {
 
         $filename = $_REQUEST['filename'];
         $dir = !defined( 'CODE_SNIPPET_DIR' ) ? ABSPATH . '/wp-code-snippet' : CODE_SNIPPET_DIR;
-        $path = $dir . '/' . $filename;
+        $path = $dir . '/' . $filename . '.php';
+
         if( ! file_exists( $path ) ) {
             echo "error occured";
+            exit;
         }
         unlink( $path );
         echo "deleted";

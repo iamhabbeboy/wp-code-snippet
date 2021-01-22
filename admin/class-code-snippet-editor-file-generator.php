@@ -14,13 +14,12 @@ class Code_Snippet_File_Generator {
 	 *
 	 * @return string
 	 */
-	public function create( string $code, string $file_name = '' ) {
+	public function create( string $code, string $filename = '' ) {
 		$directory_path = $this->create_dir();
-		$file_name      = empty( $file_name ) ? 'sample' : $file_name;
-		$path           = $directory_path . '/' . $file_name . '.php';
-		$fopen = fopen( $path, 'wb' ) || die( 'Unable to open file' );
-		fwrite( $fopen, $code );
-		fclose( $fopen );
+		$filename      = empty( $filename ) ? 'sample' : $filename;
+		$path           = $directory_path . '/' . $filename . '.php';
+		
+		$response = file_put_contents($path, $code);// || die('Error occured');
 
 		return $path;
 	}
@@ -37,11 +36,12 @@ class Code_Snippet_File_Generator {
 		$directory_path = ! defined( 'CODE_SNIPPET_DIR' )
 		? ABSPATH . 'wp-code-snippet'
 		: CODE_SNIPPET_DIR;
-
+	
 		if ( ! file_exists( $directory_path ) ) {
 			mkdir( $directory_path );
-			chmod( $directory_path, $permission );
+			// @chmod( $directory_path, $permission );
 		}
+
 		return $directory_path;
 	}
 	/**
@@ -62,5 +62,6 @@ class Code_Snippet_File_Generator {
 			return;
 		}
 		file_put_contents( $file_path, $code ) || die( 'Unable to write to file' );
+		// chmod( $file_path, 0777 );
 	}
 }

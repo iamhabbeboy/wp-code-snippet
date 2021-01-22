@@ -6,6 +6,8 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
+ * @package Code_Snippet_Editor
+ * @subpackage Code_Snippet/Editor/includes
  */
 class Code_Snippet_Editor_I18n {
 
@@ -22,7 +24,6 @@ class Code_Snippet_Editor_I18n {
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
 
 

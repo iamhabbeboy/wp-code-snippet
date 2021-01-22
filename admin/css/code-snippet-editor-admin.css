@@ -91,7 +91,7 @@ code {
     color: rgb(111, 173, 111);
 }
 
-#code-snippet-delete-file {
+.code-snippet-delete-file {
     position: relative;
     left: 150px;
     border-radius: 100%;

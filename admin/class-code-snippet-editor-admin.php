@@ -14,10 +14,6 @@
  *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
- *
- * @package    Code_Snippet_Editor
- * @subpackage Code_Snippet_Editor/admin
- * @author     Your Name <email@example.com>
  */
 class Code_Snippet_Editor_Admin {
 
@@ -63,7 +59,7 @@ class Code_Snippet_Editor_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles($hook) {
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -72,6 +68,10 @@ class Code_Snippet_Editor_Admin {
 		 * defined in Plugin_Name_Loader as all of the hooks are defined
 		 * in that particular class.
 		 */
+
+		if ( $hook !== 'toplevel_page_code_snippet_editor' ) { 
+			return false;
+		}
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'dist/css/code-snippet-editor-admin.min.css', array(), $this->version, 'all' );
 	}
@@ -81,7 +81,7 @@ class Code_Snippet_Editor_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts($hook) {
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -90,6 +90,10 @@ class Code_Snippet_Editor_Admin {
 		 * defined in Plugin_Name_Loader as all of the hooks are defined
 		 * in that particular class.
 		 */
+
+		if ( $hook !== 'toplevel_page_code_snippet_editor' ) { 
+			return false;
+		}
 
 		wp_enqueue_script( 'lib', plugin_dir_url( __FILE__ ) . 'js/lib/ace/ace.js', array(), $this->version, true );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'dist/js/code-snippet-editor-admin.min.js', array( 'jquery' ), $this->version, true );

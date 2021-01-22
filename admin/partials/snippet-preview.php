@@ -1,5 +1,5 @@
 <div class="wp-pattern-example" id="code-snippet-preview-pane">
-        <h3><?php esc_html_e( 'Preview', 'instant-snippet' ) ?></h3>
+        <h3><?php esc_html_e( 'Preview', 'code-snippet-editor' ) ?></h3>
         <div id="instant-snippet-output" style="height: 400px;overflow:scroll" data-url="<?php echo admin_url('admin-ajax.php') ?>">
         
         <?xml version="1.0" encoding="utf-8"?>

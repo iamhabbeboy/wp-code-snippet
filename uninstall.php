@@ -17,12 +17,11 @@
  * general skeleton and outline for how the file should work.
  *
  * For more information, see the following discussion:
- * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
  * @link       http://example.com
  * @since      1.0.0
  *
- * @package    Plugin_Name
+ * @package    Code_Snippet_Editor
  */
 
 // If uninstall not called from WordPress, then exit.

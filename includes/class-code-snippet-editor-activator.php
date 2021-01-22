@@ -3,6 +3,8 @@
  * Fired during plugin activation
  * 
  * @since      1.0.0
+ * @package Code_Snippet_Editor
+ * @subpackage Code_Snippet_Editor/includes
  */
 
 /**
